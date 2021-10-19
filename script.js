@@ -4,7 +4,7 @@ const doubleBtn = document.getElementById('double');
 const showMillionairesBtn = document.getElementById('show-millionaires');
 const sortBtn = document.getElementById('sort');
 const calculateWealthBtn = document.getElementById('calculate-wealth');
-const data = [];
+let data = [];
 
 getRandomUser();
 getRandomUser();
@@ -22,6 +22,19 @@ async function getRandomUser() {
     money: Math.floor(Math.random() * 1000000),
   };
   addData(newUser);
+}
+//double everyones money
+function doubleMoney() {
+  data = data.map((user) => {
+    return { ...user, money: user.money * 2 };
+  });
+  updateDOM();
+}
+
+//Sort users by richest
+function sortByRichest() {
+  data.sort((a, b) => b.money - a.money);
+  updateDOM();
 }
 
 //Add new obj to data arr
@@ -51,3 +64,5 @@ function formatMoney(number) {
 }
 
 addUserBtn.addEventListener('click', getRandomUser);
+doubleBtn.addEventListener('click', doubleMoney);
+sortBtn.addEventListener('click', sortByRichest);
